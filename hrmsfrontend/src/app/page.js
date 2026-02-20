@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import EmployeeForm from "./components/EmployeeForm";
 import EmployeeTable from "./components/EmployeeTable";
 
-const API_BASE = "http://localhost:5000/api";
+const API_BASE = process.env.NEXT_PUBLIC_BASE_URL;
 
 export default function Home() {
   return (
