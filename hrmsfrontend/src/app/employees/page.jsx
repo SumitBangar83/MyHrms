@@ -1,10 +1,10 @@
 "use client";
 import { useEffect, useState } from "react";
-import { api } from "../../lib/api";
-import Loader from "../../components/Loader";
-import ErrorBox from "../../components/ErrorBox";
-import EmployeeForm from "../../components/EmployeeForm";
-import EmployeeTable from "../../components/EmployeeTable";
+import { api } from "../lib/api";
+import Loader from "../components/Loader";
+import ErrorBox from "../components/ErrorBox";
+import EmployeeForm from "../components/EmployeeForm";
+import EmployeeTable from "../components/EmployeeTable";
 
 export default function EmployeesPage() {
     const [employees, setEmployees] = useState([]);
