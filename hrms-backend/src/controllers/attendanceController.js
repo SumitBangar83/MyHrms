@@ -1,5 +1,4 @@
 import Attendance from "../models/Attendance.js";
-
 import employee from "../models/Employee.js";
 
 export const markAttendance = async (req, res) => {
@@ -12,25 +11,26 @@ export const markAttendance = async (req, res) => {
 
         const normalizedStatus = String(status).toLowerCase();
 
-        if (!isValidISOStringDate(date)) {
+        const parsedDate = new Date(date);
+        if (isNaN(parsedDate.getTime())) {
             return res.status(400).json({ message: "Invalid date format" });
         }
 
         if (!["present", "absent"].includes(normalizedStatus)) {
             return res.status(400).json({ message: "Status should be present or absent" });
         }
+        const normalizedEmployeeId = String(employeeId).toUpperCase().trim();
 
-        const emp = await employee.findOne({ employeeId });
+        const emp = await employee.findOne({ employeeId: normalizedEmployeeId });
         if (!emp) {
             return res.status(404).json({ message: "employee not found" });
         }
 
-        const parsedDate = new Date(date);
         const attendanceDate = new Date(parsedDate);
         attendanceDate.setUTCHours(0, 0, 0, 0);
 
         const existing = await Attendance.findOne({
-            employeeId,
+            employeeId: normalizedEmployeeId,
             date: attendanceDate,
         });
 
@@ -39,7 +39,7 @@ export const markAttendance = async (req, res) => {
         }
 
         const attendance = await Attendance.create({
-            employeeId,
+            employeeId: normalizedEmployeeId,
             date: attendanceDate,
             status: normalizedStatus,
         });
