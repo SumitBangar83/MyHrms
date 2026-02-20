@@ -7,7 +7,7 @@ export default function Navbar() {
                 HRMS Lite
             </Link>
 
-            <Link href="/employees" className="hover:underline">
+            <Link href="/" className="hover:underline">
                 Employees
             </Link>
         </nav>
